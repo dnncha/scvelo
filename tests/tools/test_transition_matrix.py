@@ -1,5 +1,6 @@
-import numpy as np
 import pytest
+
+import numpy as np
 from scipy.sparse import csr_matrix
 
 from anndata import AnnData
