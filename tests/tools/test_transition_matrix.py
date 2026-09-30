@@ -35,9 +35,10 @@ def test_transition_matrix_obsp_tracks_reordered_cells(
     velocity_graphs, use_negative_cosines, self_transitions
 ):
     adata = _adata(*velocity_graphs, obsp=True)
-    kwargs = dict(
-        use_negative_cosines=use_negative_cosines, self_transitions=self_transitions
-    )
+    kwargs = {
+        "use_negative_cosines": use_negative_cosines,
+        "self_transitions": self_transitions,
+    }
     reference = scv.tl.transition_matrix(adata, **kwargs).toarray()
     permutation = np.array([2, 0, 3, 1])
     reordered = adata[permutation].copy()
@@ -70,7 +71,10 @@ def test_transition_matrix_uns_only_matches_aligned_obsp(
 ):
     uns_only = _adata(*velocity_graphs)
     aligned_obsp = _adata(*velocity_graphs, obsp=True)
-    kwargs = dict(self_transitions=False, use_negative_cosines=use_negative_cosines)
+    kwargs = {
+        "self_transitions": False,
+        "use_negative_cosines": use_negative_cosines,
+    }
 
     np.testing.assert_allclose(
         scv.tl.transition_matrix(uns_only, **kwargs).toarray(),
